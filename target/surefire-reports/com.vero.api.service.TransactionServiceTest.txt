@@ -1,0 +1,19 @@
+-------------------------------------------------------------------------------
+Test set: com.vero.api.service.TransactionServiceTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2.464 s <<< FAILURE! -- in com.vero.api.service.TransactionServiceTest
+com.vero.api.service.TransactionServiceTest.testGetTopSpendingCategories_returnsTopN -- Time elapsed: 2.181 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting LinkedKeySet:
+  []
+to contain:
+  [FOOD]
+but could not find the following element(s):
+  [FOOD]
+
+	at com.vero.api.service.TransactionServiceTest.testGetTopSpendingCategories_returnsTopN(TransactionServiceTest.java:232)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

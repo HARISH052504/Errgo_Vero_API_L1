@@ -66,8 +66,8 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());
 
         return repository.findAll().stream()
-                .filter(t -> t.getTransactionDate().isAfter(startOfMonth)
-                        && !t.getTransactionDate().isAfter(endOfMonth))
+               .filter(t -> !t.getTransactionDate().isBefore(startOfMonth)
+                     && !t.getTransactionDate().isAfter(endOfMonth))
                 .collect(Collectors.groupingBy(
                         Transaction::getCategory,
                         Collectors.reducing(BigDecimal.ZERO, Transaction::getAmount, BigDecimal::add)
