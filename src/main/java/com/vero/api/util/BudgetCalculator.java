@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public final class BudgetCalculator {
 
@@ -25,7 +26,25 @@ public final class BudgetCalculator {
      * @return a map of Category to total spend, sorted descending by spend, limited to topN entries
      */
     public static Map<Category, BigDecimal> getTopSpendingCategories(List<Transaction> transactions, int topN) {
-        // TODO: implement
-        return new LinkedHashMap<>();
+
+        return transactions.stream()
+                .collect(Collectors.groupingBy(
+                        Transaction::getCategory,
+                        Collectors.reducing(
+                                BigDecimal.ZERO,
+                                Transaction::getAmount,
+                                BigDecimal::add
+                        )
+                ))
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<Category, BigDecimal>comparingByValue().reversed())
+                .limit(topN)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (a, b) -> a,
+                        LinkedHashMap::new
+                ));
     }
 }
